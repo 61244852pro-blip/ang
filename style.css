@@ -1,0 +1,2299 @@
+﻿/* =========================================================
+   UNA AVENTURA PARA ANGGE
+   Hoja de estilos principal
+   Ruta: css/style.css
+   ========================================================= */
+
+/* 1. VARIABLES Y REINICIO */
+:root {
+  --forest: #183d2b;
+  --forest-deep: #102b20;
+  --forest-soft: #315c43;
+  --sage: #a8b99b;
+  --sage-light: #dce5d5;
+  --cream: #f7f2e8;
+  --paper: #fffdf7;
+  --sand: #e9dfcd;
+  --gold: #c6a66a;
+  --gold-light: #e8d5a8;
+  --ink: #26352b;
+  --muted: #687568;
+  --shadow: 0 22px 60px rgba(19, 43, 30, .14);
+  --serif: "Playfair Display", Georgia, serif;
+  --sans: "DM Sans", Arial, sans-serif;
+  --radius: 22px;
+  --content: 1120px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: var(--sans);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  color: var(--paper);
+  background: var(--forest-soft);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Accesibilidad */
+.skip-link {
+  position: fixed;
+  z-index: 10000;
+  top: 12px;
+  left: 12px;
+  padding: 10px 16px;
+  color: white;
+  background: var(--forest-deep);
+  border-radius: 8px;
+  transform: translateY(-160%);
+  transition: transform .2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* 2. ELEMENTOS GENERALES */
+.section {
+  position: relative;
+  padding: 112px 24px;
+  overflow: hidden;
+}
+
+.section-heading {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto 52px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 13px;
+  color: var(--forest-soft);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.section-heading h2,
+.final-section h2 {
+  margin: 0;
+  color: var(--forest);
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.section-heading h2 span {
+  color: var(--gold);
+}
+
+.section-heading > p:last-child {
+  margin: 17px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  min-height: 52px;
+  padding: 13px 24px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: .88rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .15);
+}
+
+.button--light {
+  color: var(--forest-deep);
+  background: var(--paper);
+  border-color: rgba(255, 255, 255, .55);
+}
+
+.button--light:hover {
+  background: var(--gold-light);
+}
+
+/* 3. PANTALLA DE CARGA */
+.loader {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(93, 128, 91, .35), transparent 34%),
+    var(--forest-deep);
+  transition: opacity .65s ease, visibility .65s ease;
+  animation: loader-safety-dismiss .01ms 10s forwards;
+}
+
+
+@keyframes loader-safety-dismiss {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+.loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader__flower {
+  color: var(--gold-light);
+  font-size: 4.2rem;
+  animation: flower-breathe 2.2s ease-in-out infinite;
+}
+
+.loader__text {
+  margin: 0;
+  color: rgba(255, 253, 247, .88);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+
+.loader__track {
+  width: min(220px, 60vw);
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .2);
+  border-radius: 99px;
+}
+
+.loader__progress {
+  display: block;
+  width: 42%;
+  height: 100%;
+  background: var(--gold-light);
+  border-radius: inherit;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+.flower-opening {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.opening-flower {
+  position: absolute;
+  left: var(--flower-x);
+  top: var(--flower-y);
+  color: var(--flower-color);
+  font-size: var(--flower-size);
+  line-height: 1;
+  opacity: 0;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, .24));
+  transform: translate(-50%, -50%) scale(.08) rotate(-25deg);
+  animation: flower-opening 4.8s cubic-bezier(.18,.67,.28,1) var(--flower-delay) both;
+  will-change: transform, opacity;
+}
+
+@keyframes flower-opening {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.08) rotate(-25deg); }
+  14% { opacity: 1; }
+  55% { opacity: 1; transform: translate(calc(-50% + var(--flower-drift)), calc(-50% + var(--flower-rise))) scale(1.15) rotate(35deg); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--flower-drift)), calc(-50% + var(--flower-rise))) scale(2.7) rotate(115deg); }
+}
+/* 4. CONTROL DE MÚSICA */
+.music-toggle {
+  position: fixed;
+  z-index: 100;
+  top: 20px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  color: var(--paper);
+  background: rgba(16, 43, 32, .88);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .14);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+.music-toggle > span:first-child {
+  font-size: 1.15rem;
+}
+
+.music-toggle__label {
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+/* 5. INTRODUCCIÓN BOTÁNICA */
+.intro {
+  display: grid;
+  min-height: min(850px, 100svh);
+  place-items: center;
+  padding: 100px 24px 90px;
+  color: var(--cream);
+  text-align: center;
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, rgba(13, 37, 26, .96), rgba(27, 68, 46, .86)),
+    var(--forest);
+}
+
+.intro::before,
+.intro::after {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  border: 1px solid rgba(232, 213, 168, .18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.intro::before {
+  width: min(78vw, 850px);
+  aspect-ratio: 1;
+  animation: slow-rotate 65s linear infinite;
+}
+
+.intro::after {
+  width: min(60vw, 650px);
+  aspect-ratio: 1;
+  border-style: dashed;
+  animation: slow-rotate 85s linear infinite reverse;
+}
+
+.intro__background {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.intro__leaf,
+.intro__flower,
+.intro__spark {
+  position: absolute;
+  color: rgba(226, 218, 185, .3);
+  user-select: none;
+}
+
+.intro__leaf {
+  font-size: clamp(5rem, 13vw, 11rem);
+}
+
+.intro__leaf--one {
+  top: 8%;
+  left: 4%;
+  transform: rotate(-35deg);
+  animation: float 8s ease-in-out infinite;
+}
+
+.intro__leaf--two {
+  right: 3%;
+  bottom: 8%;
+  transform: rotate(145deg);
+  animation: float 9s ease-in-out infinite reverse;
+}
+
+.intro__flower {
+  color: rgba(232, 213, 168, .65);
+  font-size: clamp(2rem, 5vw, 4rem);
+  animation: flower-breathe 5s ease-in-out infinite;
+}
+
+.intro__flower--one {
+  top: 19%;
+  right: 17%;
+}
+
+.intro__flower--two {
+  bottom: 20%;
+  left: 15%;
+  animation-delay: -2s;
+}
+
+.intro__spark {
+  color: var(--gold-light);
+  font-size: 2rem;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.intro__spark--one {
+  top: 30%;
+  left: 23%;
+}
+
+.intro__spark--two {
+  right: 24%;
+  bottom: 28%;
+  animation-delay: -1.4s;
+}
+
+.intro__content {
+  width: min(850px, 100%);
+  animation: rise-in 1s both;
+}
+
+.intro .eyebrow {
+  color: var(--gold-light);
+}
+
+.intro h1 {
+  margin: 20px 0;
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: clamp(3.1rem, 8.5vw, 6.8rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -.045em;
+}
+
+.intro h1 span {
+  color: var(--gold-light);
+  font-style: italic;
+}
+
+.intro__dedication {
+  margin: 0 auto 32px;
+  color: rgba(255, 253, 247, .8);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
+
+.intro__scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  color: rgba(255, 253, 247, .65);
+  font-size: .7rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.intro__scroll::after {
+  display: block;
+  width: 1px;
+  height: 28px;
+  margin: 10px auto 0;
+  background: var(--gold);
+  content: "";
+}
+
+/* 6. CALENDARIO - ESTILO PAPEL TEXTURIZADO Y MEMORY KEEPER */
+.calendar-section {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(198, 166, 106, .12), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(168, 185, 155, .15), transparent 40%),
+    linear-gradient(180deg, #fbf7ee 0%, #f4ede0 100%);
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(170px, 230px) minmax(320px, 500px) minmax(170px, 230px);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(22px, 4vw, 52px);
+  max-width: 1160px;
+  margin: 0 auto;
+  perspective: 1200px;
+}
+
+/* POLAROIDS A LOS LADOS DEL CALENDARIO: EFECTO TARJETA FLOTANTE CON FÍSICA ELÁSTICA */
+.calendar-polaroid {
+  position: relative;
+  margin: 0;
+  padding: 13px 13px 22px;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow:
+    0 12px 28px -4px rgba(36, 48, 38, .14),
+    0 4px 10px rgba(0, 0, 0, .05),
+    inset 0 0 0 1px rgba(0, 0, 0, .04);
+  transform-origin: center center;
+  transition:
+    transform .55s cubic-bezier(.34, 1.56, .64, 1),
+    box-shadow .55s cubic-bezier(.16, 1, .3, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+
+/* Cinta washi decorativa sobre las fotos del calendario */
+.calendar-polaroid::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 72px;
+  height: 22px;
+  background: rgba(228, 214, 186, .75);
+  backdrop-filter: blur(2px);
+  border-left: 2px dashed rgba(160, 140, 105, .3);
+  border-right: 2px dashed rgba(160, 140, 105, .3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .08);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.calendar-polaroid--left {
+  transform: rotate(-5.5deg) translateZ(0);
+}
+
+.calendar-polaroid--right {
+  transform: rotate(5.5deg) translateZ(0);
+}
+
+.calendar-polaroid--right::before {
+  transform: translateX(-50%) rotate(3deg);
+  background: rgba(215, 226, 210, .8);
+}
+
+/* Hover suave con física elástica tipo tarjeta flotante */
+.calendar-polaroid:hover,
+.calendar-polaroid.is-active {
+  z-index: 10;
+  transform: translateY(-16px) scale(1.045) rotate(0deg);
+  box-shadow:
+    0 28px 45px -8px rgba(24, 61, 43, .22),
+    0 12px 24px rgba(0, 0, 0, .08),
+    0 0 0 1px rgba(198, 166, 106, .35);
+}
+
+.calendar-polaroid img {
+  width: 100%;
+  aspect-ratio: 4 / 4.8;
+  object-fit: cover;
+  border-radius: 2px;
+  background: var(--sage-light);
+  filter: contrast(1.02) saturate(1.04);
+  transition: transform .55s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.calendar-polaroid:hover img {
+  transform: scale(1.02);
+}
+
+.calendar-polaroid figcaption {
+  padding-top: 14px;
+  color: #4f5a4e;
+  font-family: 'Caveat', cursive, var(--serif);
+  font-size: 1.15rem;
+  letter-spacing: .02em;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* TARJETA DE CALENDARIO IMPRESO DE ALTA CALIDAD (CREAM/KRAFT TEXTURIZADO) */
+.calendar-card {
+  position: relative;
+  padding: clamp(24px, 4vw, 40px);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .9), rgba(254, 251, 243, .96) 60%, #f7efe1 100%),
+    repeating-linear-gradient(45deg, rgba(198, 166, 106, .02) 0, rgba(198, 166, 106, .02) 2px, transparent 0, transparent 6px),
+    #faf5eb;
+  border: 1px solid rgba(198, 166, 106, .45);
+  border-radius: 14px;
+  box-shadow:
+    0 24px 60px -12px rgba(28, 48, 35, .16),
+    0 8px 22px rgba(0, 0, 0, .06),
+    inset 0 0 0 1px rgba(255, 255, 255, .85),
+    inset 0 2px 0 rgba(255, 255, 255, .9),
+    inset 0 -12px 24px rgba(198, 166, 106, .06);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+/* Espiral / anillas metálicas decorativas estilo cuaderno impreso */
+.calendar-card__binder {
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 40px;
+  pointer-events: none;
+}
+
+.calendar-card__ring {
+  width: 14px;
+  height: 24px;
+  background: linear-gradient(135deg, #dfc699 0%, #a88448 45%, #664f26 70%, #d8be8d 100%);
+  border-radius: 7px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .25), inset 0 1px 1px rgba(255, 255, 255, .6);
+}
+
+.calendar-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 18px;
+  border-bottom: 2px dashed rgba(198, 166, 106, .38);
+}
+
+.calendar-card__month {
+  color: var(--forest);
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: .22em;
+}
+
+.calendar-card__year {
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: .08em;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+  text-align: center;
+}
+
+.calendar-grid--weekdays {
+  padding: 20px 0 12px;
+  color: var(--forest-soft);
+  font-family: var(--serif);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.calendar-grid--days {
+  row-gap: 8px;
+}
+
+.calendar-day {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  aspect-ratio: 1;
+  place-items: center;
+  color: #3b493f;
+  font-family: 'Plus Jakarta Sans', var(--sans);
+  font-size: clamp(.82rem, 1.6vw, 1.02rem);
+  font-weight: 500;
+  border-radius: 50%;
+  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), background-color .2s ease, color .2s ease;
+}
+
+.calendar-day:not(.calendar-day--empty):not(.calendar-day--special):hover {
+  background: rgba(198, 166, 106, .16);
+  color: var(--forest-deep);
+  transform: scale(1.18);
+  font-weight: 700;
+}
+
+.calendar-day--empty {
+  visibility: hidden;
+}
+
+/* EL DÍA ESPECIAL (3 DE ENERO) - TOQUE MÁGICO, PULSO CÁLIDO DORADO Y CORONITA 3D FLOTANTE */
+.calendar-day--special {
+  position: relative;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* Fondo circular con degradado cálido esmeralda y borde dorado cosido */
+.calendar-day--special .calendar-day__num {
+  position: relative;
+  z-index: 2;
+  font-size: 1.15em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .35);
+}
+
+.calendar-day__aurora {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #1f4f38 0%, #102d20 100%);
+  box-shadow:
+    0 4px 14px rgba(16, 45, 32, .4),
+    0 0 0 2px #d4b272,
+    0 0 0 4px rgba(212, 178, 114, .32);
+  transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+  animation: special-aurora-breathe 2.6s ease-in-out infinite;
+}
+
+@keyframes special-aurora-breathe {
+  0%, 100% {
+    box-shadow:
+      0 4px 14px rgba(16, 45, 32, .4),
+      0 0 0 2px #d4b272,
+      0 0 0 4px rgba(212, 178, 114, .35),
+      0 0 18px rgba(228, 194, 126, .55);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow:
+      0 6px 20px rgba(16, 45, 32, .45),
+      0 0 0 2.5px #f3dfaa,
+      0 0 0 7px rgba(228, 194, 126, .5),
+      0 0 28px rgba(243, 223, 170, .85);
+    transform: scale(1.09);
+  }
+}
+
+/* Coronita flotante 3D con microanimación física */
+.calendar-day__crown {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 6;
+  animation: crown-float-3d 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.crown-3d {
+  font-size: 1.15rem;
+  line-height: 1;
+  filter: drop-shadow(0 3px 6px rgba(119, 87, 24, .45)) drop-shadow(0 0 8px rgba(243, 223, 170, .8));
+  display: inline-block;
+}
+
+.crown-sparkles {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  font-size: .75rem;
+  animation: sparkle-twinkle 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes crown-float-3d {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translateX(-50%) translateY(-5px) rotate(-6deg) scale(1.12);
+  }
+  70% {
+    transform: translateX(-50%) translateY(-3px) rotate(6deg) scale(1.08);
+  }
+}
+
+@keyframes sparkle-twinkle {
+  0% { opacity: .2; transform: scale(.7) rotate(0deg); }
+  100% { opacity: 1; transform: scale(1.25) rotate(25deg); }
+}
+
+/* Sello especial escrito a mano / anotación artesanal */
+.calendar-day__stamp {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  white-space: nowrap;
+  font-family: 'Caveat', cursive, var(--serif);
+  font-size: .88rem;
+  font-weight: 700;
+  color: #a4483a;
+  background: rgba(255, 248, 235, .95);
+  padding: 1px 7px;
+  border-radius: 4px;
+  border: 1px dashed rgba(164, 72, 58, .55);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.calendar-day--special:hover .calendar-day__stamp {
+  transform: translateX(-50%) rotate(0deg) scale(1.1);
+  background: #fffdf8;
+  color: #8c2e22;
+}
+
+.calendar-card__note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 32px 0 0;
+  padding-top: 16px;
+  color: var(--forest);
+  border-top: 2px dashed rgba(198, 166, 106, .35);
+  font-family: 'Caveat', cursive, var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.calendar-card__note-pin {
+  font-size: 1.05rem;
+  display: inline-block;
+  transform: rotate(-15deg);
+}
+
+/* 7. VIDEO Y CUENTA REGRESIVA */
+.countdown-section {
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 90% 15%, rgba(168, 185, 155, .14), transparent 28%),
+    var(--forest-deep);
+}
+
+.countdown-section .eyebrow {
+  color: var(--gold-light);
+}
+
+.countdown-section .section-heading h2 {
+  color: var(--paper);
+}
+
+.countdown-section .section-heading > p:last-child {
+  color: rgba(255, 253, 247, .68);
+}
+
+.countdown-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 58px);
+  max-width: var(--content);
+  margin: 0 auto;
+}
+
+.videos-dual-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.video-card,
+.countdown-card {
+  min-width: 0;
+  padding: clamp(18px, 3vw, 28px);
+  background: rgba(255, 253, 247, .07);
+  border: 1px solid rgba(232, 213, 168, .22);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .13);
+  backdrop-filter: blur(6px);
+}
+
+.video-card {
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, .24);
+  border-color: rgba(232, 213, 168, .45);
+}
+
+.video-card__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #091a12;
+  border-radius: 13px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+}
+
+.video-card__frame iframe,
+.video-card__frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-card__caption {
+  margin: 15px 0 0;
+  color: rgba(255, 253, 247, .82);
+  font-family: var(--serif);
+  font-size: .95rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.countdown-card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.countdown-card__label {
+  margin: 0 0 24px;
+  color: var(--gold-light);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 105px;
+  padding: 12px 5px;
+  background: rgba(255, 253, 247, .08);
+  border: 1px solid rgba(232, 213, 168, .18);
+  border-radius: 13px;
+}
+
+.countdown__unit span {
+  color: var(--paper);
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown__unit small {
+  margin-top: 9px;
+  color: var(--gold-light);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.countdown-card__message {
+  margin: 22px 0 0;
+  color: rgba(255, 253, 247, .72);
+  font-size: .88rem;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 13px;
+  background: var(--gold-light);
+  animation: confetti-fall 3.8s linear forwards;
+}
+
+.confetti-piece:nth-child(3n) {
+  background: var(--sage);
+}
+
+.confetti-piece:nth-child(3n + 1) {
+  background: #f0c9b5;
+}
+
+/* 8. PIZARRA DE RECUERDOS (ESTILO PINTEREST BOARD ARTESANAL / CORCHO Y PAPEL) */
+.memories-section {
+  position: relative;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(198, 166, 106, .12), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(168, 185, 155, .15), transparent 45%),
+    #f2ebe0;
+}
+
+.memory-board-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+  padding: 12px;
+}
+
+/* MURO DE CORCHO TEXTURIZADO Y ELEGANTE CON MARCO DE MADERA NATURAL */
+.memory-board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px 20px;
+  padding: clamp(28px, 4.5vw, 52px);
+  /* Textura de corcho cálido artesanal generada por capas de degradados sutiles */
+  background-color: #d8b88a;
+  background-image:
+    radial-gradient(#cba674 15%, transparent 16%),
+    radial-gradient(#b89360 15%, transparent 16%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 248, 235, .25), rgba(166, 126, 75, .35));
+  background-size: 24px 24px, 18px 18px, 100% 100%;
+  background-position: 0 0, 12px 12px, 0 0;
+  border: 12px solid #8e6840;
+  border-radius: 16px;
+  box-shadow:
+    0 25px 60px -15px rgba(45, 30, 15, .32),
+    inset 0 0 40px rgba(78, 48, 20, .38),
+    inset 0 3px 6px rgba(0, 0, 0, .2),
+    0 2px 0 rgba(255, 255, 255, .4);
+}
+
+/* Cintas decorativas en las esquinas del marco de corcho */
+.board-pin-tape {
+  position: absolute;
+  width: 90px;
+  height: 26px;
+  background: rgba(245, 235, 215, .65);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .12);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.board-pin-tape--corner-tl {
+  top: -6px;
+  left: 20px;
+  transform: rotate(-3deg);
+  border-left: 2px dashed rgba(160, 120, 80, .4);
+  border-right: 2px dashed rgba(160, 120, 80, .4);
+}
+
+.board-pin-tape--corner-tr {
+  top: -6px;
+  right: 20px;
+  transform: rotate(4deg);
+  border-left: 2px dashed rgba(160, 120, 80, .4);
+  border-right: 2px dashed rgba(160, 120, 80, .4);
+}
+
+/* WASHI TAPES ARTESANALES EN LAS ESQUINAS/TOP DE CADA POLAROID */
+.washi-tape {
+  position: absolute;
+  height: 24px;
+  background: rgba(255, 246, 214, .82);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  pointer-events: none;
+  z-index: 8;
+  border-left: 2px dashed rgba(198, 166, 106, .45);
+  border-right: 2px dashed rgba(198, 166, 106, .45);
+}
+
+.washi-tape--top-center {
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 78px;
+}
+
+.washi-tape--top-left {
+  top: -12px;
+  left: 18px;
+  transform: rotate(-12deg);
+  width: 68px;
+  background: rgba(220, 235, 225, .82);
+}
+
+.washi-tape--top-right {
+  top: -12px;
+  right: 18px;
+  transform: rotate(14deg);
+  width: 68px;
+  background: rgba(245, 222, 225, .82);
+}
+
+.washi-tape--diagonal {
+  top: -10px;
+  left: -12px;
+  transform: rotate(-32deg);
+  width: 65px;
+  background: rgba(235, 230, 215, .85);
+}
+
+.washi-tape--gold {
+  background: rgba(238, 220, 175, .88);
+}
+
+/* POLAROID / TILE ESTILO PINTEREST CON ASIMETRÍA ORGÁNICA */
+.memory-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 12px 18px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, .06);
+  border-radius: 4px;
+  box-shadow:
+    0 10px 22px -4px rgba(45, 32, 18, .18),
+    0 3px 8px rgba(0, 0, 0, .06);
+  cursor: pointer;
+  text-align: left;
+  transform-origin: center center;
+  transition:
+    transform .5s cubic-bezier(.34, 1.56, .64, 1),
+    box-shadow .5s cubic-bezier(.16, 1, .3, 1),
+    z-index 0s;
+  will-change: transform, box-shadow;
+  outline: none;
+}
+
+/* DISTRIBUCIÓN ASIMÉTRICA Y ORGÁNICA ESTILO PINTEREST BOARD */
+.memory-tile--1 {
+  grid-column: span 6;
+  transform: rotate(-2.8deg) translateY(0);
+}
+
+.memory-tile--2 {
+  grid-column: span 6;
+  transform: rotate(2.2deg) translateY(8px);
+}
+
+.memory-tile--3 {
+  grid-column: span 6;
+  transform: rotate(2.5deg) translateY(-4px);
+}
+
+.memory-tile--4 {
+  grid-column: span 6;
+  transform: rotate(-1.8deg) translateY(4px);
+}
+
+.memory-tile--5 {
+  grid-column: 3 / span 8;
+  transform: rotate(0.8deg) translateY(6px);
+  background:
+    radial-gradient(circle at 50% 25%, rgba(212, 178, 114, .18), transparent 50%),
+    linear-gradient(135deg, #183d2b 0%, #102a1d 100%);
+  border: 2px dashed rgba(212, 178, 114, .65);
+}
+
+/* MICROINTERACCIONES: ELEVACIÓN FLUIDA CON INERCIA Y SOMBRA REALISTA EN PROFUNDIDAD */
+.memory-tile:hover,
+.memory-tile:focus-visible {
+  z-index: 20;
+  transform: translateY(-16px) scale(1.035) rotate(0deg) !important;
+  box-shadow:
+    0 28px 50px -10px rgba(35, 22, 12, .32),
+    0 14px 28px rgba(0, 0, 0, .14),
+    0 0 0 1px rgba(198, 166, 106, .4);
+}
+
+.memory-tile__photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--sage-light);
+}
+
+.memory-tile__photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s cubic-bezier(.34, 1.56, .64, 1), filter .4s ease;
+  filter: contrast(1.02) saturate(1.05);
+}
+
+.memory-tile:hover .memory-tile__photo-frame img {
+  transform: scale(1.04);
+}
+
+.memory-tile__footer {
+  padding-top: 12px;
+  text-align: center;
+}
+
+.memory-tile__caption {
+  display: block;
+  color: var(--forest);
+  font-family: 'Caveat', cursive, var(--serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .01em;
+}
+
+.memory-tile__hint {
+  display: block;
+  margin-top: 2px;
+  color: #7b867c;
+  font-family: var(--sans);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .85;
+}
+
+/* TILE ESPECIAL DE VIDEO */
+.memory-tile--video .memory-tile__caption {
+  color: #fff9ea;
+  font-size: 1.45rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+
+.memory-tile--video .memory-tile__hint {
+  color: #d6e2d8;
+  opacity: .9;
+}
+
+.memory-tile__video-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0 14px;
+}
+
+.memory-tile__play {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  color: var(--forest-deep);
+  background: linear-gradient(135deg, #f5e4be 0%, #d4b272 100%);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, .3),
+    0 0 0 6px rgba(212, 178, 114, .25);
+  transition: transform .4s cubic-bezier(.34, 1.56, .64, 1), box-shadow .4s ease;
+}
+
+.memory-tile:hover .memory-tile__play {
+  transform: scale(1.14);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, .35),
+    0 0 0 10px rgba(212, 178, 114, .35);
+}
+
+/* 9. VENTANA MODAL DE RECUERDOS (TRANSICIÓN ORGÁNICA Y ZOOM CINEMATOGRÁFICO SUAVE) */
+.memory-modal {
+  position: fixed;
+  z-index: 5000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s cubic-bezier(.16, 1, .3, 1), visibility .4s ease;
+}
+
+.memory-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.memory-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 28, 20, .82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.memory-modal__dialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  width: min(880px, 100%);
+  max-height: min(670px, 88svh);
+  overflow: auto;
+  background:
+    radial-gradient(ellipse at 80% 10%, rgba(255, 255, 255, .9), rgba(254, 252, 247, .98) 70%),
+    #fffdf9;
+  border: 1px solid rgba(198, 166, 106, .6);
+  border-radius: 20px;
+  box-shadow:
+    0 32px 90px -10px rgba(10, 25, 18, .5),
+    0 12px 30px rgba(0, 0, 0, .2),
+    inset 0 0 0 1px rgba(255, 255, 255, .9);
+  transform: scale(.88) translateY(24px);
+  transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1), opacity .4s ease;
+  will-change: transform, opacity;
+}
+
+.memory-modal.is-open .memory-modal__dialog {
+  transform: scale(1) translateY(0);
+}
+
+.memory-modal__close {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: var(--forest);
+  background: rgba(255, 253, 247, .96);
+  border: 1px solid rgba(198, 166, 106, .35);
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .14);
+  cursor: pointer;
+  font-size: 1.6rem;
+  line-height: 1;
+  transition: transform .25s ease, background-color .25s ease;
+}
+
+.memory-modal__close:hover {
+  transform: rotate(90deg) scale(1.1);
+  background: #ffffff;
+}
+
+.memory-modal__media {
+  display: grid;
+  min-height: 320px;
+  place-items: center;
+  overflow: hidden;
+  background: #e4e8dc;
+}
+
+.memory-modal__media img,
+.memory-modal__media video,
+.memory-modal__media iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  border: 0;
+}
+
+.memory-modal__media iframe {
+  aspect-ratio: 16 / 9;
+}
+
+.modal-videos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.modal-video-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+}
+
+.modal-video-item iframe,
+.modal-video-item video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+}
+
+.modal-video-caption {
+  display: none;
+}
+
+.memory-modal__copy {
+  align-self: center;
+  padding: clamp(28px, 5vw, 52px);
+}
+
+.memory-modal__copy h3 {
+  margin: 0 0 16px;
+  color: var(--forest);
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.memory-modal__copy > p:last-child {
+  margin: 0;
+  color: #586458;
+  font-size: .98rem;
+  line-height: 1.85;
+}
+
+/* 10. CARTA Y SOBRE */
+.letter-section {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(168, 185, 155, .2), transparent 28%),
+    #f5efe3;
+  text-align: center;
+}
+
+.envelope {
+  position: relative;
+  display: block;
+  width: min(310px, 78vw);
+  height: 205px;
+  margin: 70px auto 25px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  perspective: 900px;
+  filter: drop-shadow(0 18px 22px rgba(41, 55, 39, .18));
+  transition: transform .3s ease;
+}
+
+.envelope:hover {
+  transform: translateY(-6px);
+}
+
+.envelope__body {
+  position: absolute;
+  inset: 35px 0 0;
+  z-index: 2;
+  background: linear-gradient(145deg, #e9d7b8, #d5b98e);
+  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 5px;
+}
+
+.envelope__flap {
+  position: absolute;
+  z-index: 3;
+  top: 35px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #f0dfc2;
+  clip-path: polygon(0 0, 50% 70%, 100% 0);
+  transform-origin: top center;
+  transition: transform .65s ease, z-index .1s .3s;
+}
+
+.envelope__seal {
+  position: absolute;
+  z-index: 4;
+  top: 103px;
+  left: 50%;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  color: var(--paper);
+  background: #8c563f;
+  border: 2px solid rgba(255, 255, 255, .4);
+  border-radius: 50%;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  transform: translateX(-50%);
+  transition: opacity .3s ease;
+}
+
+.envelope__flower {
+  position: absolute;
+  z-index: 5;
+  top: -20px;
+  right: 15px;
+  color: var(--forest-soft);
+  font-size: 2.5rem;
+  animation: flower-breathe 4s ease-in-out infinite;
+}
+
+.envelope__label,
+.envelope__instruction {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.envelope__label {
+  bottom: 33px;
+  color: #6c4a31;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.envelope__instruction {
+  bottom: -35px;
+  color: var(--muted);
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.envelope.is-open .envelope__flap {
+  z-index: 1;
+  transform: rotateX(180deg);
+}
+
+.envelope.is-open .envelope__seal {
+  opacity: 0;
+}
+
+.letter-content {
+  width: min(760px, 100%);
+  margin: 55px auto 0;
+  text-align: left;
+  animation: rise-in .65s both;
+}
+
+.letter-content__paper {
+  position: relative;
+  padding: clamp(28px, 6vw, 62px);
+  background:
+    linear-gradient(rgba(198, 166, 106, .08) 1px, transparent 1px),
+    var(--paper);
+  background-size: 100% 34px;
+  border: 1px solid rgba(198, 166, 106, .48);
+  box-shadow: var(--shadow);
+}
+
+.letter-content__paper::before {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(198, 166, 106, .25);
+  content: "";
+  pointer-events: none;
+}
+
+.letter-content__paper > * {
+  position: relative;
+}
+
+.letter-content__paper h3 {
+  margin: 0 0 24px;
+  color: var(--forest);
+  font-family: var(--serif);
+  font-size: 2rem;
+}
+
+.letter-content__paper p:not(.eyebrow) {
+  color: #4e5a4e;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  line-height: 2;
+}
+
+.letter-content__paper .letter-content__signoff {
+  margin-top: 28px;
+  color: var(--forest) !important;
+  font-size: 1.35rem !important;
+  font-weight: 700;
+}
+
+.letter-content__signature {
+  color: var(--muted) !important;
+  font-size: .9rem !important;
+  font-style: italic;
+}
+
+/* 11. CIERRE */
+.final-section {
+  display: flex;
+  min-height: 620px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream);
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(89, 125, 86, .38), transparent 48%),
+    var(--forest-deep);
+  text-align: center;
+}
+
+.final-section .eyebrow {
+  color: var(--gold-light);
+}
+
+.final-section h2 {
+  max-width: 900px;
+  color: var(--paper);
+  font-size: clamp(2.7rem, 7vw, 5.5rem);
+}
+
+.final-section > p:not(.eyebrow) {
+  max-width: 600px;
+  margin: 22px auto 30px;
+  color: rgba(255, 253, 247, .78);
+  font-size: 1.02rem;
+}
+
+.final-section__decoration {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 4vw, 42px);
+  margin-bottom: 35px;
+  color: var(--gold-light);
+}
+
+.final-section__decoration span:nth-child(odd) {
+  font-size: 2rem;
+  animation: flower-breathe 4s ease-in-out infinite;
+}
+
+.final-section__decoration span:nth-child(even) {
+  font-size: 1.2rem;
+  animation: twinkle 2.5s ease-in-out infinite;
+}
+
+.final-section__decoration span:nth-child(3) {
+  animation-delay: -1.2s;
+}
+
+.site-footer {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  left: 20px;
+  color: rgba(255, 253, 247, .5);
+  font-size: .72rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* 12. ANIMACIONES */
+@keyframes loading {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(260%); }
+}
+
+@keyframes flower-breathe {
+  0%, 100% { transform: scale(1) rotate(-5deg); }
+  50% { transform: scale(1.12) rotate(5deg); }
+}
+
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -18px; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: .45; transform: scale(.85); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+
+@keyframes slow-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translate3d(0, -20px, 0) rotate(0); opacity: 1; }
+  100% { transform: translate3d(35px, 420px, 0) rotate(620deg); opacity: 0; }
+}
+
+/* 13. RESPONSIVE: TABLET */
+@media (max-width: 900px) {
+  .section {
+    padding: 88px 22px;
+  }
+
+  .calendar-layout {
+    grid-template-columns: minmax(120px, 170px) minmax(280px, 430px) minmax(120px, 170px);
+    gap: 18px;
+  }
+
+  .countdown-layout {
+    grid-template-columns: 1fr;
+    max-width: 680px;
+  }
+
+  .video-card,
+  .countdown-card {
+    width: 100%;
+  }
+
+  .memory-board {
+    gap: 18px 16px;
+    padding: 32px 24px;
+  }
+}
+
+/* 14. RESPONSIVE: MÓVILES */
+@media (max-width: 620px) {
+  html {
+    scroll-padding-top: 12px;
+  }
+
+  .section {
+    padding: 76px 17px;
+  }
+
+  .section-heading {
+    margin-bottom: 36px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+
+  .section-heading > p:last-child {
+    font-size: .9rem;
+  }
+
+  .intro {
+    min-height: 740px;
+    min-height: 100svh;
+    padding: 90px 20px 100px;
+  }
+
+  .intro h1 {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .intro__leaf--one {
+    top: 7%;
+    left: -9%;
+  }
+
+  .intro__leaf--two {
+    right: -10%;
+    bottom: 8%;
+  }
+
+  .intro__scroll {
+    bottom: 22px;
+    width: 100%;
+    font-size: .62rem;
+  }
+
+  .music-toggle {
+    top: 12px;
+    right: 12px;
+    padding: 9px 12px;
+  }
+
+  .music-toggle__label {
+    font-size: .7rem;
+  }
+
+  .calendar-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 14px;
+    max-width: 460px;
+  }
+
+  .calendar-card {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: min(100%, 430px);
+    justify-self: center;
+  }
+
+  .calendar-polaroid {
+    width: min(100%, 185px);
+    justify-self: center;
+    padding: 8px 8px 12px;
+  }
+
+  .calendar-polaroid--left {
+    transform: rotate(-5deg);
+  }
+
+  .calendar-polaroid--right {
+    transform: rotate(5deg);
+  }
+
+  .calendar-polaroid img {
+    aspect-ratio: 1 / 1.08;
+  }
+
+  .calendar-polaroid figcaption {
+    padding-top: 8px;
+    font-size: .7rem;
+  }
+
+  .calendar-grid {
+    gap: 3px;
+  }
+
+  .calendar-grid--weekdays {
+    padding-top: 14px;
+  }
+
+  .calendar-day__cake {
+    width: 19px;
+    height: 19px;
+    top: -7px;
+    right: -5px;
+  }
+
+  .countdown-layout {
+    gap: 18px;
+  }
+
+  .video-card,
+  .countdown-card {
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .countdown {
+    gap: 6px;
+  }
+
+  .countdown__unit {
+    min-height: 82px;
+    padding: 8px 2px;
+    border-radius: 9px;
+  }
+
+  .countdown__unit span {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .countdown__unit small {
+    font-size: .48rem;
+    letter-spacing: .07em;
+  }
+
+  .countdown-card__label {
+    font-size: .68rem;
+    line-height: 1.5;
+  }
+
+  .memory-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px;
+    padding: 22px 14px;
+    border-width: 8px;
+  }
+
+  .memory-tile {
+    min-height: auto;
+    padding: 8px 8px 12px;
+  }
+
+  .memory-tile--1,
+  .memory-tile--3 {
+    grid-column: 1;
+  }
+
+  .memory-tile--2,
+  .memory-tile--4 {
+    grid-column: 2;
+  }
+
+  .memory-tile--5 {
+    grid-column: 1 / -1;
+  }
+
+  .memory-tile__caption {
+    padding-top: 6px;
+    font-size: 1.1rem;
+  }
+
+  .memory-tile__hint {
+    font-size: .55rem;
+  }
+
+  .memory-tile__play {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .memory-modal {
+    padding: 13px;
+  }
+
+  .memory-modal__dialog {
+    grid-template-columns: 1fr;
+    width: min(460px, 100%);
+    max-height: 90svh;
+    border-radius: 14px;
+  }
+
+  .memory-modal__media {
+    min-height: 210px;
+    max-height: 36svh;
+  }
+
+  .memory-modal__media img,
+  .memory-modal__media video,
+  .memory-modal__media iframe {
+    min-height: 210px;
+    max-height: 36svh;
+  }
+
+  .memory-modal__copy {
+    padding: 25px 24px 30px;
+  }
+
+  .memory-modal__copy h3 {
+    font-size: 1.75rem;
+  }
+
+  .memory-modal__copy > p:last-child {
+    font-size: .9rem;
+    line-height: 1.7;
+  }
+
+  .envelope {
+    width: min(285px, 82vw);
+    height: 190px;
+    margin-top: 55px;
+  }
+
+  .envelope__body {
+    top: 32px;
+  }
+
+  .envelope__flap {
+    top: 32px;
+    height: 92px;
+  }
+
+  .envelope__seal {
+    top: 95px;
+  }
+
+  .letter-content {
+    margin-top: 48px;
+  }
+
+  .letter-content__paper {
+    padding: 30px 25px;
+  }
+
+  .letter-content__paper h3 {
+    font-size: 1.7rem;
+  }
+
+  .letter-content__paper p:not(.eyebrow) {
+    font-size: .94rem;
+    line-height: 1.85;
+  }
+
+  .final-section {
+    min-height: 570px;
+    padding-bottom: 100px;
+  }
+
+  .final-section h2 {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .final-section > p:not(.eyebrow) {
+    font-size: .92rem;
+  }
+
+  .site-footer {
+    bottom: 14px;
+    font-size: .65rem;
+  }
+}
+
+/* 15. PANTALLAS MUY PEQUEÑAS */
+@media (max-width: 360px) {
+  .section {
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .memory-board {
+    gap: 12px 8px;
+    padding: 16px 10px;
+  }
+
+  .memory-tile {
+    min-height: 140px;
+  }
+
+  .countdown__unit {
+    min-height: 74px;
+  }
+
+  .calendar-card {
+    padding: 18px 13px;
+  }
+}
+
+/* 16. REDUCCIÓN DE MOVIMIENTO */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Movimiento ornamental para que cada sección se sienta viva */
+.intro {
+  background-size: 180% 180%, auto;
+  animation: intro-glow 12s ease-in-out infinite alternate;
+}
+
+.intro__content > * {
+  animation: rise-in .9s both;
+}
+
+.intro__content > :nth-child(1) { animation-delay: .12s; }
+.intro__content > :nth-child(2) { animation-delay: .28s; }
+.intro__content > :nth-child(3) { animation-delay: .48s; }
+.intro__content > :nth-child(4) { animation-delay: .68s; }
+
+.intro-petal {
+  position: absolute;
+  top: var(--petal-y);
+  left: var(--petal-x);
+  color: var(--petal-color);
+  font-size: var(--petal-size);
+  opacity: .78;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .18));
+  animation: petal-drift var(--petal-speed) ease-in-out var(--petal-delay) infinite alternate;
+}
+
+.calendar-card {
+  animation: calendar-arrive 1.1s cubic-bezier(.2,.8,.2,1) both, calendar-glow 5s ease-in-out 1.1s infinite;
+}
+
+.calendar-day:not(.calendar-day--empty) {
+  animation: day-pop .55s cubic-bezier(.2,1.6,.4,1) both;
+}
+
+.calendar-day:nth-child(7n + 1) { animation-delay: .05s; }
+.calendar-day:nth-child(7n + 2) { animation-delay: .09s; }
+.calendar-day:nth-child(7n + 3) { animation-delay: .13s; }
+.calendar-day:nth-child(7n + 4) { animation-delay: .17s; }
+.calendar-day:nth-child(7n + 5) { animation-delay: .21s; }
+.calendar-day:nth-child(7n + 6) { animation-delay: .25s; }
+.calendar-day:nth-child(7n) { animation-delay: .29s; }
+
+.calendar-day:not(.calendar-day--empty):hover {
+  z-index: 1;
+  color: var(--forest-deep);
+  background: var(--gold-light);
+  transform: scale(1.22) rotate(-8deg);
+  transition: transform .22s ease, background .22s ease;
+}
+
+.calendar-day--special {
+  animation: birthday-pulse 1.8s ease-in-out infinite !important;
+}
+
+.calendar-polaroid {
+  animation: photo-sway 5s ease-in-out infinite;
+}
+
+.calendar-polaroid--right { animation-delay: -2.5s; }
+
+.envelope {
+  animation: envelope-float 3.2s ease-in-out infinite;
+}
+
+.envelope.is-open {
+  animation: envelope-open .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.envelope__seal {
+  box-shadow: 0 0 0 0 rgba(140, 86, 63, .3);
+  animation: seal-glow 2s ease-out infinite;
+}
+
+.envelope.is-open .envelope__seal { animation: none; }
+
+.letter-content.is-revealing .letter-content__paper {
+  animation: letter-unfold .95s cubic-bezier(.16,1,.3,1) both;
+  transform-origin: top center;
+}
+
+.letter-content.is-revealing .letter-content__paper > * {
+  animation: letter-ink .7s ease both;
+}
+
+.letter-content.is-revealing .letter-content__paper > :nth-child(1) { animation-delay: .2s; }
+.letter-content.is-revealing .letter-content__paper > :nth-child(2) { animation-delay: .35s; }
+.letter-content.is-revealing .letter-content__paper > :nth-child(3) { animation-delay: .5s; }
+.letter-content.is-revealing .letter-content__paper > :nth-child(4) { animation-delay: .65s; }
+.letter-content.is-revealing .letter-content__paper > :nth-child(5) { animation-delay: .8s; }
+.letter-content.is-revealing .letter-content__paper > :nth-child(6) { animation-delay: .95s; }
+.letter-content.is-revealing .letter-content__paper > :nth-child(7) { animation-delay: 1.1s; }
+
+.motion-ready .motion-reveal {
+  opacity: 0;
+  transform: translateY(42px) scale(.97);
+  transition: opacity .85s ease, transform .85s cubic-bezier(.2,.8,.2,1);
+}
+
+.motion-ready .motion-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes intro-glow {
+  from { background-position: 0% 50%, center; }
+  to { background-position: 100% 50%, center; }
+}
+
+@keyframes petal-drift {
+  from { transform: translate3d(-12px, 18px, 0) rotate(-35deg) scale(.82); }
+  to { transform: translate3d(22px, -26px, 0) rotate(35deg) scale(1.18); }
+}
+
+@keyframes calendar-arrive {
+  from { opacity: 0; transform: perspective(900px) rotateX(18deg) translateY(45px) scale(.92); }
+  to { opacity: 1; transform: perspective(900px) rotateX(0) translateY(0) scale(1); }
+}
+
+@keyframes calendar-glow {
+  0%, 100% { box-shadow: 0 18px 55px rgba(19, 43, 30, .12), 0 0 0 0 rgba(198, 166, 106, 0); }
+  50% { box-shadow: 0 24px 65px rgba(19, 43, 30, .2), 0 0 0 8px rgba(198, 166, 106, .12); }
+}
+
+@keyframes day-pop {
+  from { opacity: 0; transform: scale(.25) rotate(-25deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes birthday-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px rgba(198, 166, 106, .2), 0 0 0 0 rgba(198, 166, 106, .25); }
+  50% { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(198, 166, 106, .3), 0 0 0 13px rgba(198, 166, 106, 0); }
+}
+
+@keyframes photo-sway {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
+}
+
+@keyframes envelope-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
+}
+
+@keyframes envelope-open {
+  0% { transform: scale(1) rotate(0); }
+  45% { transform: scale(1.08) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+@keyframes seal-glow {
+  0% { box-shadow: 0 0 0 0 rgba(140, 86, 63, .35); }
+  70% { box-shadow: 0 0 0 12px rgba(140, 86, 63, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(140, 86, 63, 0); }
+}
+
+@keyframes letter-unfold {
+  from { opacity: 0; transform: perspective(1200px) rotateX(-14deg) translateY(26px) scale(.96); filter: blur(5px); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(0) translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes letter-ink {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calendar-day:not(.calendar-day--empty),
+  .calendar-polaroid,
+  .calendar-card,
+  .envelope,
+  .envelope__seal,
+  .intro,
+  .intro-petal { animation: none !important; }
+}
+/* El calendario se despliega cuando entra en pantalla */
+.motion-ready .calendar-layout .calendar-card {
+  animation: none;
+}
+
+.motion-ready .calendar-layout.is-visible .calendar-card {
+  animation: calendar-arrive 1.1s cubic-bezier(.2,.8,.2,1) both, calendar-glow 5s ease-in-out 1.1s infinite;
+}
+
+.motion-ready .calendar-layout .calendar-day:not(.calendar-day--empty) {
+  animation: none;
+}
+
+.motion-ready .calendar-layout.is-visible .calendar-day:not(.calendar-day--empty) {
+  animation: day-pop .55s cubic-bezier(.2,1.6,.4,1) both;
+}
+
+.motion-ready .calendar-layout.is-visible .calendar-day--special {
+  animation: birthday-pulse 1.8s ease-in-out infinite .7s !important;
+}
+/* Flores flotantes visibles durante todo el recorrido */
+.page-flower-layer {
+  position: fixed;
+  z-index: 50;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-flower {
+  position: absolute;
+  left: var(--flower-x);
+  top: 110%;
+  font-size: var(--flower-size);
+  opacity: .72;
+  filter: drop-shadow(0 4px 9px rgba(55, 28, 36, .32));
+  animation: page-flower-dance var(--flower-duration) linear var(--flower-delay) infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes page-flower-dance {
+  0% { transform: translate3d(0, 0, 0) rotate(-35deg) scale(.55); opacity: 0; }
+  12% { opacity: .78; }
+  50% { transform: translate3d(var(--flower-sway), -65vh, 0) rotate(190deg) scale(1.25); opacity: .9; }
+  88% { opacity: .76; }
+  100% { transform: translate3d(calc(var(--flower-sway) * -1), -125vh, 0) rotate(420deg) scale(.72); opacity: 0; }
+}
+/* Un cierre de cumpleaños con halo y destellos en órbita */
+.final-section h2 {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  animation: birthday-title-arrive 1.2s cubic-bezier(.18,.8,.22,1) both, birthday-title-glow 3.6s ease-in-out 1.2s infinite;
+}
+
+.final-section h2::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -.22em -.3em;
+  border: 1px solid rgba(255, 226, 156, .46);
+  border-radius: 50%;
+  box-shadow: 0 0 34px rgba(255, 218, 133, .24), inset 0 0 28px rgba(255, 218, 133, .12);
+  animation: birthday-halo-orbit 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.final-section h2::after {
+  content: "✦  ✧  ✦";
+  position: absolute;
+  top: -.78em;
+  left: 50%;
+  color: #ffe4a8;
+  font-family: var(--serif);
+  font-size: .34em;
+  letter-spacing: .55em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  animation: birthday-sparkle 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes birthday-title-arrive {
+  0% { opacity: 0; transform: translateY(35px) scale(.78); filter: blur(10px); }
+  65% { opacity: 1; transform: translateY(-6px) scale(1.04); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: drop-shadow(0 0 18px rgba(255, 220, 145, .24)); }
+}
+
+@keyframes birthday-title-glow {
+  0%, 100% { text-shadow: 0 0 8px rgba(255, 228, 168, .16); }
+  50% { text-shadow: 0 0 24px rgba(255, 228, 168, .56), 0 0 48px rgba(255, 204, 112, .22); }
+}
+
+@keyframes birthday-halo-orbit {
+  0%, 100% { transform: rotate(-4deg) scale(.96, .9); opacity: .48; }
+  50% { transform: rotate(4deg) scale(1.04, 1.08); opacity: .95; }
+}
+
+@keyframes birthday-sparkle {
+  0%, 100% { opacity: .5; transform: translateX(-50%) translateY(4px) scale(.88); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-5px) scale(1.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .final-section h2,
+  .final-section h2::before,
+  .final-section h2::after { animation: none !important; }
+}
+/* Flores tenues en una capa decorativa discreta */
+.page-flower-layer {
+  opacity: .14;
+}
+
+.page-flower {
+  opacity: .45;
+  filter: drop-shadow(0 2px 5px rgba(55, 28, 36, .18));
+}
+
+.video-card__frame video,
+.modal-video-item video {
+  object-fit: contain;
+  background: #050806;
+}
+/* El efecto del saludo comienza cuando llega a la vista */
+.final-section h2 { animation: none; }
+.final-section h2.is-visible {
+  animation: birthday-title-arrive 1.2s cubic-bezier(.18,.8,.22,1) both, birthday-title-glow 3.6s ease-in-out 1.2s infinite;
+}

@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#183d2b">
+  <meta name="description" content="Una pequeña aventura preparada con cariño para celebrar un día especial.">
+  <title>Una aventura para Angge</title>
+
+  <!-- Hoja de estilos del proyecto -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Fuentes: si no hay conexión, se usarán las fuentes de respaldo del sistema -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Accesibilidad: permite saltar directamente al contenido principal -->
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- Pantalla inicial / precarga -->
+  <div class="loader" id="loader" aria-label="Una lluvia de flores abre la aventura">
+    <div class="flower-opening" id="flowerOpening" aria-hidden="true"></div>
+    <div class="loader__flower" aria-hidden="true">✿</div>
+    <p class="loader__text">Una sorpresa florece para Angge</p>
+    <div class="loader__track" aria-hidden="true">
+      <span class="loader__progress"></span>
+    </div>
+  </div>
+
+  <!-- Música opcional: se activa únicamente si el usuario pulsa el control.
+       Sustituye el archivo por tu música si decides añadirla. -->
+  <audio id="backgroundMusic" loop preload="none">
+    <source src="assets/audio/musica-fondo.mp3" type="audio/mpeg">
+  </audio>
+
+  <button
+    class="music-toggle"
+    id="musicToggle"
+    type="button"
+    aria-label="Activar o pausar música"
+    aria-pressed="false"
+    hidden
+  >
+    <span aria-hidden="true">♫</span>
+    <span class="music-toggle__label">Música</span>
+  </button>
+
+  <main id="contenido">
+    <!-- 1. INTRODUCCIÓN BOTÁNICA -->
+    <section class="intro section" id="inicio" aria-labelledby="introTitle">
+      <div class="intro__background" aria-hidden="true">
+        <span class="intro__leaf intro__leaf--one">❧</span>
+        <span class="intro__leaf intro__leaf--two">❧</span>
+        <span class="intro__flower intro__flower--one">✿</span>
+        <span class="intro__flower intro__flower--two">✿</span>
+        <span class="intro__spark intro__spark--one">✧</span>
+        <span class="intro__spark intro__spark--two">✧</span>
+      </div>
+
+      <div class="intro__content">
+        <p class="eyebrow">Una fecha, una historia, muchos recuerdos</p>
+        <h1 id="introTitle">
+          Hoy nació<br>
+          <span>alguien especial</span>
+        </h1>
+        <p class="intro__dedication">Una pequeña aventura preparada para Angge.</p>
+        <a class="button button--light" href="#calendario">
+          Comenzar la aventura <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <div class="intro__scroll" aria-hidden="true">Desliza para descubrir</div>
+    </section>
+
+    <!-- 2. CALENDARIO DE ENERO DE 2027 -->
+    <section class="calendar-section section" id="calendario" aria-labelledby="calendarTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Guarda esta fecha</p>
+        <h2 id="calendarTitle">Enero <span>2027</span></h2>
+        <p>Hay días que merecen quedarse marcados en el calendario.</p>
+      </div>
+
+      <div class="calendar-layout">
+        <figure class="calendar-polaroid calendar-polaroid--left">
+          <img
+            src="angge-photo.jpg"
+            alt="Recuerdo de Angge, fotografía uno"
+            loading="lazy"
+          >
+          <figcaption>Un recuerdo bonito</figcaption>
+        </figure>
+
+        <div class="calendar-card" aria-label="Calendario de enero de 2027">
+          <div class="calendar-card__binder" aria-hidden="true">
+            <span class="calendar-card__ring"></span>
+            <span class="calendar-card__ring"></span>
+            <span class="calendar-card__ring"></span>
+          </div>
+          <div class="calendar-card__top">
+            <span class="calendar-card__month">ENERO</span>
+            <span class="calendar-card__year">2027</span>
+          </div>
+          <div class="calendar-grid calendar-grid--weekdays" aria-hidden="true">
+            <span>LU</span><span>MA</span><span>MI</span><span>JU</span>
+            <span>VI</span><span>SÁ</span><span>DO</span>
+          </div>
+          <div class="calendar-grid calendar-grid--days">
+            <!-- Enero de 2027 comienza en viernes. -->
+            <span class="calendar-day calendar-day--empty" aria-hidden="true"></span>
+            <span class="calendar-day calendar-day--empty" aria-hidden="true"></span>
+            <span class="calendar-day calendar-day--empty" aria-hidden="true"></span>
+            <span class="calendar-day calendar-day--empty" aria-hidden="true"></span>
+            <span class="calendar-day">1</span>
+            <span class="calendar-day">2</span>
+            <span class="calendar-day calendar-day--special" aria-label="Domingo 3 de enero, cumpleaños de Angge">
+              <span class="calendar-day__aurora" aria-hidden="true"></span>
+              <span class="calendar-day__num">3</span>
+              <span class="calendar-day__crown" aria-hidden="true">
+                <span class="crown-3d">👑</span>
+                <span class="crown-sparkles">✨</span>
+              </span>
+              <span class="calendar-day__stamp" aria-hidden="true">Día de Angge</span>
+            </span>
+            <span class="calendar-day">4</span><span class="calendar-day">5</span>
+            <span class="calendar-day">6</span><span class="calendar-day">7</span>
+            <span class="calendar-day">8</span><span class="calendar-day">9</span>
+            <span class="calendar-day">10</span><span class="calendar-day">11</span>
+            <span class="calendar-day">12</span><span class="calendar-day">13</span>
+            <span class="calendar-day">14</span><span class="calendar-day">15</span>
+            <span class="calendar-day">16</span><span class="calendar-day">17</span>
+            <span class="calendar-day">18</span><span class="calendar-day">19</span>
+            <span class="calendar-day">20</span><span class="calendar-day">21</span>
+            <span class="calendar-day">22</span><span class="calendar-day">23</span>
+            <span class="calendar-day">24</span><span class="calendar-day">25</span>
+            <span class="calendar-day">26</span><span class="calendar-day">27</span>
+            <span class="calendar-day">28</span><span class="calendar-day">29</span>
+            <span class="calendar-day">30</span><span class="calendar-day">31</span>
+          </div>
+          <p class="calendar-card__note">
+            <span class="calendar-card__note-pin" aria-hidden="true">📌</span>
+            3 de enero · Un día mágico para celebrar
+          </p>
+        </div>
+
+        <figure class="calendar-polaroid calendar-polaroid--right">
+          <img
+            src="Captura de pantalla 2026-11-07 200510.png"
+            alt="Recuerdo de Angge, fotografía dos"
+            loading="lazy"
+          >
+          <figcaption>Un instante para recordar</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3. CUENTA REGRESIVA Y VIDEO -->
+    <section class="countdown-section section" id="cuenta-regresiva" aria-labelledby="countdownTitle">
+      <div class="section-heading">
+        <p class="eyebrow">La espera también forma parte de la magia</p>
+        <h2 id="countdownTitle">Cada vez falta menos</h2>
+        <p>Una fecha especial está en camino y una canción para acompañar este recuerdo.</p>
+      </div>
+
+      <div class="countdown-layout">
+        <!-- Video 1: Mac DeMarco -->
+        <div class="video-card">
+          <div class="video-card__frame">
+            <video id="birthdayVideo" src="video-mac-demarco.mp4" controls playsinline preload="metadata" title="Mac DeMarco - Heart to Heart">Tu navegador no puede reproducir este video.</video>
+          </div>
+          <p class="video-card__caption">Mac DeMarco — Heart to Heart</p>
+        </div>
+
+        <div class="countdown-card">
+          <p class="countdown-card__label">Cuenta regresiva para el 3 de enero de 2027</p>
+          <div class="countdown" id="countdown" data-target="2027-01-03T00:00:00-05:00" aria-live="off">
+            <div class="countdown__unit">
+              <span id="countdownDays">--</span>
+              <small>DÍAS</small>
+            </div>
+            <div class="countdown__unit">
+              <span id="countdownHours">--</span>
+              <small>HORAS</small>
+            </div>
+            <div class="countdown__unit">
+              <span id="countdownMinutes">--</span>
+              <small>MINUTOS</small>
+            </div>
+            <div class="countdown__unit">
+              <span id="countdownSeconds">--</span>
+              <small>SEGUNDOS</small>
+            </div>
+          </div>
+          <p class="countdown-card__message" id="countdownMessage">
+            Un nuevo año, un nuevo capítulo y muchas razones para sonreír.
+          </p>
+          <div class="confetti" id="confetti" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PIZARRA DE RECUERDOS: CUATRO FOTOS + UN VIDEO -->
+    <section class="memories-section section" id="recuerdos" aria-labelledby="memoriesTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Pequeños detalles que dicen mucho</p>
+        <h2 id="memoriesTitle">Una pizarra de recuerdos</h2>
+        <p>Cuatro fotografías y un video; cinco pequeñas ventanas a momentos especiales.</p>
+      </div>
+
+      <div class="memory-board-wrapper">
+        <div class="memory-board" id="memoryBoard">
+          <!-- Detalles decorativos estilo tablero de inspiración / corcho y papel -->
+          <div class="board-pin-tape board-pin-tape--corner-tl" aria-hidden="true"></div>
+          <div class="board-pin-tape board-pin-tape--corner-tr" aria-hidden="true"></div>
+
+          <button
+            class="memory-tile memory-tile--photo memory-tile--1"
+            type="button"
+            data-memory="alegria"
+            aria-label="Abrir recuerdo: tu alegría"
+          >
+            <span class="washi-tape washi-tape--top-center" aria-hidden="true"></span>
+            <div class="memory-tile__photo-frame">
+              <img src="angge-funny.jpg" alt="Angge en un momento divertido" loading="lazy">
+            </div>
+            <div class="memory-tile__footer">
+              <span class="memory-tile__caption">Tu alegría ✨</span>
+              <span class="memory-tile__hint">Ver recuerdo</span>
+            </div>
+          </button>
+
+          <button
+            class="memory-tile memory-tile--photo memory-tile--2"
+            type="button"
+            data-memory="corazon"
+            aria-label="Abrir recuerdo: tu corazón"
+          >
+            <span class="washi-tape washi-tape--top-left" aria-hidden="true"></span>
+            <div class="memory-tile__photo-frame">
+              <img src="WhatsApp Image 2026-10-31 at 5.27.06 PM.jpeg" alt="Angge en una fotografía especial" loading="lazy">
+            </div>
+            <div class="memory-tile__footer">
+              <span class="memory-tile__caption">Tu corazón 🌷</span>
+              <span class="memory-tile__hint">Ver recuerdo</span>
+            </div>
+          </button>
+
+          <button
+            class="memory-tile memory-tile--photo memory-tile--3"
+            type="button"
+            data-memory="fortaleza"
+            aria-label="Abrir recuerdo: tu fortaleza"
+          >
+            <span class="washi-tape washi-tape--top-right" aria-hidden="true"></span>
+            <div class="memory-tile__photo-frame">
+              <img src="Captura de pantalla 2026-11-07 200209.png" alt="Angge en un momento especial" loading="lazy">
+            </div>
+            <div class="memory-tile__footer">
+              <span class="memory-tile__caption">Tu fortaleza 🕊️</span>
+              <span class="memory-tile__hint">Ver recuerdo</span>
+            </div>
+          </button>
+
+          <button
+            class="memory-tile memory-tile--photo memory-tile--4"
+            type="button"
+            data-memory="generosidad"
+            aria-label="Abrir recuerdo: tu generosidad"
+          >
+            <span class="washi-tape washi-tape--diagonal" aria-hidden="true"></span>
+            <div class="memory-tile__photo-frame">
+              <img src="Captura de pantalla 2026-11-07 200333.png" alt="Angge en un recuerdo especial" loading="lazy">
+            </div>
+            <div class="memory-tile__footer">
+              <span class="memory-tile__caption">Tu generosidad 💫</span>
+              <span class="memory-tile__hint">Ver recuerdo</span>
+            </div>
+          </button>
+
+          <button
+            class="memory-tile memory-tile--video memory-tile--5"
+            type="button"
+            data-memory="cancion"
+            aria-label="Abrir el video especial: Contigo en la distancia de Luis Miguel"
+          >
+            <span class="washi-tape washi-tape--top-center washi-tape--gold" aria-hidden="true"></span>
+            <div class="memory-tile__video-badge" aria-hidden="true">
+              <span class="memory-tile__play">▶</span>
+            </div>
+            <div class="memory-tile__footer">
+              <span class="memory-tile__caption">Una canción para ti 🎵</span>
+              <span class="memory-tile__hint">Luis Miguel · Contigo en la distancia</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENTANA MODAL PARA LOS CUATRO RECUERDOS Y EL VIDEO -->
+    <div class="memory-modal" id="memoryModal" aria-hidden="true">
+      <div class="memory-modal__backdrop" data-close-modal></div>
+      <section
+        class="memory-modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="memoryModalTitle"
+        aria-describedby="memoryModalText"
+      >
+        <button class="memory-modal__close" type="button" aria-label="Cerrar recuerdo" data-close-modal>×</button>
+        <div class="memory-modal__media" id="memoryModalMedia"></div>
+        <div class="memory-modal__copy">
+          <p class="eyebrow">Un detalle que quería compartir</p>
+          <h3 id="memoryModalTitle">Un recuerdo especial</h3>
+          <p id="memoryModalText"></p>
+        </div>
+      </section>
+    </div>
+
+    <!-- 5. CARTA EN EL SOBRE -->
+    <section class="letter-section section" id="carta" aria-labelledby="letterTitle">
+      <div class="section-heading">
+        <p class="eyebrow">Unas palabras para este día</p>
+        <h2 id="letterTitle">Hay algo que quiero decirte</h2>
+        <p>Abre el sobre cuando quieras leerlo.</p>
+      </div>
+
+      <button class="envelope" id="openLetter" type="button" aria-expanded="false" aria-controls="letterContent">
+        <span class="envelope__flower" aria-hidden="true">✿</span>
+        <span class="envelope__flap" aria-hidden="true"></span>
+        <span class="envelope__body" aria-hidden="true"></span>
+        <span class="envelope__seal" aria-hidden="true">A</span>
+        <span class="envelope__label">Para Angge</span>
+        <span class="envelope__instruction">Toca para abrir</span>
+      </button>
+
+      <article class="letter-content" id="letterContent" hidden>
+        <div class="letter-content__paper">
+          <p class="eyebrow">Con aprecio</p>
+          <h3>Querida Angge:</h3>
+          <!-- Sustituye este texto por la versión definitiva de la carta. -->
+          <p>
+            Hoy quiero desearte un cumpleaños muy bonito. Espero que este nuevo año de vida
+            venga acompañado de salud, tranquilidad, alegrías y muchas oportunidades para
+            seguir creciendo y acercándote a todo aquello que sueñas.
+          </p>
+          <p>
+            Admiro la alegría que compartes, tu fortaleza para seguir adelante y esa disposición
+            que tienes para estar presente cuando alguien necesita una palabra o una ayuda.
+            Ojalá nunca pierdas esas cualidades que te hacen ser tú.
+          </p>
+          <p>
+            Que Dios guíe tus pasos, cuide de ti y de las personas que quieres, y te dé motivos
+            para sonreír incluso en los días difíciles. Disfruta mucho tu día; mereces celebrar
+            todo lo bueno que eres y todo lo bonito que todavía está por venir.
+          </p>
+          <p class="letter-content__signoff">¡Feliz cumpleaños, Angge!</p>
+          <p class="letter-content__signature">Con mucho aprecio.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 6. CIERRE -->
+    <section class="final-section section" id="final" aria-labelledby="finalTitle">
+      <div class="final-section__decoration" aria-hidden="true">
+        <span>✿</span><span>✧</span><span>❀</span><span>✧</span><span>✿</span>
+      </div>
+      <p class="eyebrow">Y esta pequeña aventura llega a su final...</p>
+      <h2 id="finalTitle">¡Feliz cumpleaños, Angge!</h2>
+      <p>
+        Que este nuevo capítulo de tu vida esté lleno de momentos que valga la pena recordar.
+      </p>
+      <a class="button button--light" href="#inicio">Volver al comienzo ↑</a>
+      <footer class="site-footer">
+        <p>Hecho con cariño para celebrar tu día.</p>
+      </footer>
+    </section>
+  </main>
+
+  <!-- JavaScript del proyecto -->
+  <script src="script.js" defer></script>
+</body>
+</html>
